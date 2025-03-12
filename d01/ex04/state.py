@@ -1,6 +1,6 @@
 import sys
 
-def create_dicts():
+def get_dicts():
 	states = {
 	"Oregon" : "OR",
 	"Alabama" : "AL",
@@ -18,7 +18,7 @@ def create_dicts():
 	return states, capital_cities
 
 def match_capitals_to_states():
-	states, capitals = create_dicts()
+	states, capitals = get_dicts()
 	matched = dict()
 
 	for symbol, capital in capitals.items():

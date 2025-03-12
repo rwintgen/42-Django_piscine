@@ -1,4 +1,4 @@
-def create_tuple():
+def get_tuple():
 	d = [
 		('Hendrix' , '1942'),
 		('Allman' , '1946'),
@@ -31,7 +31,7 @@ def print_dict(dict):
 		print(f"{year} : {' '.join(names)}")
 
 def convert_to_dict():
-	original = create_tuple()
+	original = get_tuple()
 	result = {}
 
 	for name, year in original:
