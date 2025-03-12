@@ -53,13 +53,15 @@ def create_html(table):
 		<tr>""")
 
 		current_pos = 0
+		first_line = True
 		for name, (position, number, symbol, mass, electrons) in table.items():
 			position = int(position)
-			if position == 0 & current_pos == 0:
+			if position == 0 and first_line == False:
 				current_pos = 0
 				f.write("""
 			</tr>
 			<tr>\n""")
+			first_row = False
 				
 			while current_pos < position:
 				f.write("""
