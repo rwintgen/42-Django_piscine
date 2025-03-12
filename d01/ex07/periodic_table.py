@@ -61,7 +61,7 @@ def create_html(table):
 				f.write("""
 			</tr>
 			<tr>\n""")
-			first_row = False
+			first_line = False
 				
 			while current_pos < position:
 				f.write("""
