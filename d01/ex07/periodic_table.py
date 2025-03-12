@@ -60,6 +60,7 @@ def create_html(table):
 				current_pos = 0
 				f.write("""
 			</tr>
+
 			<tr>\n""")
 			first_line = False
 				
