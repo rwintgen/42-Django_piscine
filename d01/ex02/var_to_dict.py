@@ -26,9 +26,9 @@ def create_tuple():
 
 def print_dict(dict):
 	# for year in dict:
-	# 	print(f"{year} : {', '.join(dict[year])}")
+	# 	print(f"{year} : {' '.join(dict[year])}")
 	for year, names in dict.items():
-		print(f"{year} : {', '.join(names)}")
+		print(f"{year} : {' '.join(names)}")
 
 def convert_to_dict():
 	original = create_tuple()
