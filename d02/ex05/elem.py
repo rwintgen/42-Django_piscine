@@ -75,8 +75,8 @@ def test():
 				Elem('body', content = [
 					Elem('h1', content = Text("Oh no, not again!")),
 					Elem('img', {'src': 'http://i.imgur.com/pfp3T.jpg'}, None, "simple")
-				])
-			])
+		])
+	])
     print(html)
 
 if __name__ == '__main__':
