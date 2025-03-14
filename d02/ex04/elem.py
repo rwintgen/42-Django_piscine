@@ -1,6 +1,11 @@
 class Text(str):
 	def __str__(self):
-		return super().__str__().replace('\n', '\n<br />\n')
+		text_content = super().__str__()
+		text_content = text_content.replace('<', '&lt;')
+		text_content = text_content.replace('>', '&gt;')
+		text_content = text_content.replace('"', '&quot;')
+		text_content = text_content.replace('\n', '\n<br />\n')
+		return text_content
 
 
 class Elem:
