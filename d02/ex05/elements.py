@@ -19,11 +19,11 @@ class Title(Elem):
 		super().__init__("title", attr, content, "double")
 
 class Meta(Elem):
-	def __init__(self, attr = {}):
+	def __init__(self, content = None, attr = {}):
 		super().__init__("meta", attr, None, "simple")
 
 class Img(Elem):
-	def __init__(self, attr = {}):
+	def __init__(self, content = None, attr = {}):
 		super().__init__("img", attr, None, "simple")
 
 class Table(Elem):
@@ -75,11 +75,11 @@ class Span(Elem):
 		super().__init__("span", attr, content, "double")
 
 class Hr(Elem):
-	def __init__(self, attr = {}):
+	def __init__(self, content = None, attr = {}):
 		super().__init__("hr", attr, None, "simple")
 
 class Br(Elem):
-	def __init__(self, attr = {}):
+	def __init__(self, content = None, attr = {}):
 		super().__init__("br", attr, None, "simple")
 
 def subject_test():
@@ -93,7 +93,31 @@ def subject_test():
 			])
 	print(html)
 
-# def deeper_test():
+def deeper_test():
+	html =	Html([
+				Head([
+					Meta(attr = {"charset" : "UTF-8"}),
+					Title(Text("Test with CV from d00!"))]),
+				Body([
+					H1(Text("Hello!")),
+					H2(Text("This is my resume.")),
+					Div([
+						Table([
+							Tr([
+								Th(Text("name")),
+								Th(Text("surname")),
+								Th(Text("email"))]),
+							Tr([
+								Td(Text("romain")),
+								Td(Text("wintgens")),
+								Td(Text("rwintgen@student.42madrid.com"))])])], {"id" : "table_id"})]),
+					Div([
+						P(Text("skills")),
+						Ul([
+							Li(Text("cuddling my girlfriend")),
+							Li(Text("listening to daft punk")),
+							Li(Text("drinking gin & tonic"))])], {"class" : "list_class"})], {"lang" : "en"})
+	print(html)
 
 if __name__ == '__main__':
 	subject_test()
