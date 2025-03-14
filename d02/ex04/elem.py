@@ -80,5 +80,4 @@ def test():
     print(html)
 
 if __name__ == '__main__':
-	# test()
-	print(str(Elem(content=[Text('foo'), Text('bar'), Elem()])))
+	test()
