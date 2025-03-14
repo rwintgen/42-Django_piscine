@@ -1,86 +1,56 @@
-#!/usr/bin/python3
-
-
 class Text(str):
-	"""
-	A Text class to represent a text you could use with your HTML elements.
-
-	Because directly using str class was too mainstream.
-	"""
-
 	def __str__(self):
-		"""
-		Do you really need a comment to understand this method?..
-		"""
 		return super().__str__().replace('\n', '\n<br />\n')
 
 
 class Elem:
-	"""
-	Elem will permit us to represent our HTML elements.
-	"""
-	class InvalidElemException(Exception):
-		def __init__():
+	class ValidationError(Exception):
+		def __init__(self):
 			super().__init__("Invalid argument(s)")
 
 	def __init__(self, tag='div', attr={}, content=None, tag_type='double'):
-		"""
-		__init__() method.
+		if tag_type not in ['simple', 'double']:
+			raise self.ValidationError
 
-		Obviously.
-		"""
-
-		# tag can be anything
 		self.tag = tag
-
-		# attr can be something or nothing
 		self.attr = attr
-
-		# empty list if none for compatibility in later code
-		self.content = [] if content is None else content
-
-		if tag_type == 'simple' or tag_type == 'double':
-			self.tag_type = tag_type
-		else:
-			raise self.InvalidElemException
+		self.content = []
+		if content is not None:
+			self.add_content(content)
+		self.tag_type = tag_type
 
 	def __str__(self):
-		"""
-		The __str__() method will permit us to make a plain HTML representation
-		of our elements.
-		Make sure it renders everything (tag, attributes, embedded
-		elements...).
-		"""
+	# structure to expect:
+		# tag_type = double : <{tag} {attr}>{content}</{tag}>
+		# tag_type = simple : <{tag} {attr}/>
+		result = "<{tag}{attr}"
+
 		if self.tag_type == 'double':
-			[...]
+			result += ">{content}</{tag}>"
 		elif self.tag_type == 'simple':
-			[...]
+			result += "/>"
+
+		result = result.format(tag = self.tag, attr = self.__make_attr(), content = self.__make_content())
 		return result
 
 	def __make_attr(self):
-		"""
-		Here is a function to render our elements attributes.
-		"""
 		result = ''
 		for pair in sorted(self.attr.items()):
 			result += ' ' + str(pair[0]) + '="' + str(pair[1]) + '"'
 		return result
 
 	def __make_content(self):
-		"""
-		Here is a method to render the content, including embedded elements.
-		"""
-
 		if len(self.content) == 0:
 			return ''
 		result = '\n'
 		for elem in self.content:
-			result += [...]
+			result += "{elem}".format(elem = elem) + "\n"
+			result = "  ".join(line for line in result.splitlines(True))
 		return result
 
 	def add_content(self, content):
 		if not Elem.check_type(content):
-			raise Elem.ValidationError
+			raise self.ValidationError
 		if type(content) == list:
 			self.content += [elem for elem in content if elem != Text('')]
 		elif content != Text(''):
@@ -88,15 +58,21 @@ class Elem:
 
 	@staticmethod
 	def check_type(content):
-		"""
-		Is this object a HTML-compatible Text instance or a Elem, or even a
-		list of both?
-		"""
 		return (isinstance(content, Elem) or type(content) == Text or
 				(type(content) == list and all([type(elem) == Text or
 												isinstance(elem, Elem)
 												for elem in content])))
 
+def test():
+    html =	Elem('html', content = [
+				Elem('head', content = 
+	   				Elem('title', content = Text("Hello ground!"))),
+				Elem('body', content = [
+					Elem('h1', content = Text("Oh no, not again!")),
+					Elem('img', {'src': 'http://i.imgur.com/pfp3T.jpg'}, None, "simple")
+		])
+	])
+    print(html)
 
 if __name__ == '__main__':
-	[...]
+	test()
