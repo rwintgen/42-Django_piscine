@@ -50,7 +50,7 @@ class Elem:
 		result = '\n'
 		for elem in self.content:
 			result += "{elem}".format(elem = elem) + "\n"
-			result = "  ".join(line for line in result.splitlines(True))
+		result = "  ".join(line for line in result.splitlines(True))
 		return result
 
 	def add_content(self, content):
@@ -80,4 +80,5 @@ def test():
     print(html)
 
 if __name__ == '__main__':
-	test()
+	# test()
+	print(str(Elem(content=[Text('foo'), Text('bar'), Elem()])))
