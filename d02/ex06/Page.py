@@ -16,7 +16,34 @@ class Page:
 		source_code += str(self.elem)
 		return source_code
 	
-	# def is_valid(self):
+	def _validate_from(self, e):
+		if e.tag not in self.VALID_TAGS_FILE:
+			return False
+		
+		if isinstance(e, Html):
+			if len(e.content) != 2 or not isinstance(e.content[0], Head) or not isinstance(e.content[1], Body):
+				return False
+		
+		# if isinstance(e, Head):
+
+		# if isinstance(e, (Body, Div)):
+
+		# if e.tag in self.TEXT_ONLY_TAGS:
+
+		# if isinstance(e, P):
+
+		# if isinstance(e, Span):
+
+		# if isinstance(e, (Ul, Ol)):
+		
+		# if isinstance(e, Tr):
+
+		# if isinstance(e, Table):
+
+		return True
+	
+	def is_valid(self):
+		return self._validate_from(self.elem)
 
 	def write_to_file(self, file_name):
 		try:
