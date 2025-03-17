@@ -1,5 +1,0 @@
-title = "My CV"
-name = "Romain"
-surname = "Wintgens"
-age = "24"
-profession = "Programmer"
