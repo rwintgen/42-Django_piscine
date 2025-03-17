@@ -14,7 +14,6 @@ def get_next_url(soup):
 		href = link.get("href")
 		if href and href.startswith("/wiki/") and not href.startswith("/wiki/Wikipedia:") and not href.startswith("/wiki/Help:"):
 			new_link = "https://en.wikipedia.org" + href
-			print(new_link)
 			return new_link
 
 	return None
