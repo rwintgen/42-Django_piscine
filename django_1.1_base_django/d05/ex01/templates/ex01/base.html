@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>{% block page_title %}DEFAULT_PAGE_TITLE{% endblock %}</title>
+	{% block style %}<link rel="stylesheet" href="{% static css_file %}">{% endblock %}
+</head>
+<body>
+	<h1>{% block content_title %}DEFAULT_CONTENT_TITLE{% endblock %}</h1>
+	<body>
+		{% block content %}
+		<p>DEFAULT_CONTENT_TEXT</p>
+		{% endblock %}
+	</body>
+</body>
+</html>
