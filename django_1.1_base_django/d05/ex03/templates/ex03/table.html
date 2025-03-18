@@ -1,4 +1,5 @@
 {% load static %}
+{% load custom_tags %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -18,7 +19,7 @@
 		{% for i in max_iter %}
 		<tr>
 			{% for color, shades in colors.items %}
-				<td style="background-color: {{ shades.i }}"></td>
+				<td style="background-color: {{ shades|index:i }}"></td>
 			{% endfor %}
 		</tr>
 		{% endfor %}
