@@ -1,6 +1,7 @@
 envpython
 django_venv
 .DS_Store
+collected_static
 */__pycache__
 */*/__pycache__
 */*/*/__pycache__
