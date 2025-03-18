@@ -9,5 +9,28 @@
 </head>
 <body>
 	<h2>50 shades of bic</h2>
+	<table>
+		<tr>
+			{% for color in colors.keys %}
+				<th>{{ color }}</th>
+			{% endfor %}
+		</tr>
+		{% for i in max_iter %}
+		<tr>
+			{% for color, shades in colors.items %}
+			<td style="background-color: {{ shades|default:''|index:forloop.parentloop.counter0 }}"></td>
+			{% endfor %}
+		</tr>
+		{% endfor %}
+		<!-- {% for i in max_iter %}
+		<tr>
+			{% for color, shades in colors.items %}
+				{% for shade in shades %}
+					<td style="background-color: {{ shade|default:'' }}"></td>
+				{% endfor %}
+			{% endfor %}
+		</tr>
+		{% endfor %} -->
+	</table>
 </body>
 </html>
