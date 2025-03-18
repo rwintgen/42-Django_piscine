@@ -126,3 +126,8 @@ STATIC_ROOT = BASE_DIR / "collected_static"
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+
+# Additional settings
+
+FORM_LOG_FILE = BASE_DIR / "ex02/_form_submissions.log"

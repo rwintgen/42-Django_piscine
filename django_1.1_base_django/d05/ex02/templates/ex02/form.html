@@ -3,10 +3,21 @@
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>TEST</title>
+	<title>Form Submission</title>
 </head>
 <body>
-	<h1>TEST</h1>
-	<p>TEEEEEEEST</p>
+	<h2>Submit a New Entry</h2>
+	<form method="post">
+		{% csrf_token %}
+		{{ form.as_p }}
+		<button type="submit">Submit</button>
+	</form>
+
+	<h2>Submission History</h2>
+	<ul>
+		{% for line in history %}
+			<li>{{ line }}</li>
+		{% endfor %}
+	</ul>
 </body>
 </html>
