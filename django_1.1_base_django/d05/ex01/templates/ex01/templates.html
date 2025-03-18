@@ -1,0 +1,19 @@
+{% extends "ex01/base.html" %}
+
+{% block page_title %}Ex01: Template engine.{% endblock %}
+
+{% block content_title %}Django Template Engine{% endblock %}
+
+{% block content %}
+{% verbatim %}
+<p>Django's default template engine is a powerful tool for rendering dynamic content in web applications. It allows developers to separate the presentation layer from the business logic, making the code more maintainable and scalable. Here's an overview of how Django's template engine works and its key features:</p>
+<p>1. <strong>Template Inheritance:</strong> Template inheritance allows you to create a base template that contains common elements of your site, such as the header, footer, and navigation menu. Child templates can then extend this base template, overriding specific blocks as needed. This promotes code reuse and consistency across the site.</p>
+<p>2. <strong>Blocks:</strong> Blocks are sections within a template that can be overridden by child templates. They are defined using the `{% block %}` tag and allow for customization of specific parts of a page while inheriting the rest from the base template.</p>
+<p>3. <strong>Loops (`for ... in`):</strong> The `{% for %}` tag allows you to loop over a list or other iterable objects within a template. This is useful for displaying a list of items, such as blog posts or product listings. The loop can also include conditions and variables to control the output.</p>
+<p>4. <strong>If Control Structures:</strong> The `{% if %}` tag enables conditional logic within templates. You can use it to display content based on certain conditions, such as whether a user is logged in or if a specific variable is set. This tag supports `elif` and `else` clauses for more complex conditions.</p>
+<p>5. <strong>Context Variables:</strong> Context variables are passed from the view to the template and can be accessed using the `{{ variable_name }}` syntax. These variables can contain data such as user information, form data, or query results, which are then rendered in the template.</p>
+<p>6. <strong>Filters:</strong> Filters are used to modify the output of variables within a template. For example, you can use filters to format dates, convert text to uppercase, or perform mathematical operations. Filters are applied using the pipe (`|`) symbol.</p>
+<p>7. <strong>Tags:</strong> Tags provide additional functionality within templates, such as loading static files, including other templates, or performing complex logic. Django provides a set of built-in tags, and you can also create custom tags to suit your needs.</p>
+<p>By leveraging these features, Django's template engine allows developers to create dynamic and interactive web applications while maintaining a clean separation between the presentation and business logic.</p>
+{% endverbatim %}
+{% endblock %}

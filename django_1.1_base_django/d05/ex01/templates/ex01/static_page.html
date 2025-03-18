@@ -1,0 +1,15 @@
+{% extends "ex01/base.html" %}
+
+{% block page_title %}Ex01: Display process of a static page.{% endblock %}
+
+{% block content_title %}Django Static Web Page Process{% endblock %}
+
+{% block content %}
+<p>The process of displaying a static web page from a simple template involves several steps, from the initial request to the final rendering in the user's browser. Here's a detailed explanation of this process:</p>
+<p>1. <strong>User Request:</strong> The user enters a URL or clicks a link, initiating an HTTP request to the web server. This request is for a specific static web page, such as a homepage.</p>
+<p>2. <strong>Server Lookup:</strong> The web server receives the HTTP request and searches its storage for the requested content. This storage could be a local disk, a network drive, or a cloud-based storage service.</p>
+<p>3. <strong>Content Retrieval:</strong> The server retrieves the static HTML file associated with the requested URL. This file contains the content to be displayed, including text, images, and other media.</p>
+<p>4. <strong>Content Delivery:</strong> The retrieved HTML file is sent to the user's browser. The browser then renders the HTML content, displaying the static web page to the user.</p>
+<p>5. <strong>Caching (Optional):</strong> Static content can be cached either on the server or in the user's browser for quicker retrieval in future interactions. Cached static content leads to faster page loading and reduced server load.</p>
+<p>This process ensures that static web pages are delivered quickly and efficiently, providing a consistent user experience across different visits and users.</p>
+{% endblock %}
