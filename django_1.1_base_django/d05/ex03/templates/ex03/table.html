@@ -18,19 +18,10 @@
 		{% for i in max_iter %}
 		<tr>
 			{% for color, shades in colors.items %}
-			<td style="background-color: {{ shades|default:''|index:forloop.parentloop.counter0 }}"></td>
+				<td style="background-color: {{ shades.i }}"></td>
 			{% endfor %}
 		</tr>
 		{% endfor %}
-		<!-- {% for i in max_iter %}
-		<tr>
-			{% for color, shades in colors.items %}
-				{% for shade in shades %}
-					<td style="background-color: {{ shade|default:'' }}"></td>
-				{% endfor %}
-			{% endfor %}
-		</tr>
-		{% endfor %} -->
 	</table>
 </body>
 </html>
