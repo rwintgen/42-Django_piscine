@@ -30,4 +30,4 @@ def form_submission(request):
 		"form" : form,
 		"history" : history
 	}
-	return (render(request, "ex02/form.html", context))
+	return render(request, "ex02/form.html", context)
