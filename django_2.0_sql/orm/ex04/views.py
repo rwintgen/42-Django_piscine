@@ -61,6 +61,8 @@ def populate_table(request):
 							status.append("OK")
 						except Exception as e:
 							status.append(f"Error: {movie[1]}: {e}")
+					else:
+						status.append(f"Error: {movie[1]}: item is already in database")
 
 			return HttpResponse("<br>".join(status))
 	except Exception as e:
