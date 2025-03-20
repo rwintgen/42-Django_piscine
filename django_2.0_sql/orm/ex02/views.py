@@ -48,15 +48,15 @@ def populate_table(request):
 	try:
 		with connect_to_db() as conn:
 			with conn.cursor() as cur:
-				try:
-					for movie in movies:
+				for movie in movies:
+					try:
 						cur.execute("""
 							INSERT INTO ex02_movies (episode_nb, title, director, producer, release_date)
 							VALUES (%s, %s, %s, %s, %s);
 						""", movie)
 						status.append("OK")
-				except Exception as e:
-					status.append(f"Error: {movie[1]}: {e}")
+					except Exception as e:
+						status.append(f"Error: {movie[1]}: {e}")
 
 			return HttpResponse("<br>".join(status))
 	except Exception as e:
