@@ -1,0 +1,30 @@
+{% load static %}
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Movies</title>
+	<link rel="stylesheet" href="{% static css_file %}">
+</head>
+<body>
+	<table>
+		<tr>
+			<th>Episode</th>
+			<th>Title</th>
+			<th>Opening Crawl</th>
+			<th>Director</th>
+			<th>Producer</th>
+			<th>Release Date</th>
+			<th>Created</th>
+			<th>Updated</th>
+		</tr>
+		{% for movie in movies %}
+		<tr>
+			{% for field in movie %}
+			<td>{{ field|default:"-" }}</td>
+			{% endfor %}
+		</tr>
+		{% endfor %}
+	</table>
+</body>
+</html>

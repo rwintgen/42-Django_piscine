@@ -1,0 +1,23 @@
+{% load static %}
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Movies</title>
+	<link rel="stylesheet" href="{% static css_file %}">
+</head>
+<body>
+	<form method="post">
+		{% csrf_token %}
+		<label>Select a movie:</label>
+		<select name="episode_nb">
+			{% for movie in movies %}
+			<option value="{{ movie.0 }}">{{ movie.1 }}</option>
+			{% endfor %}
+		</select>
+		<label>New Opening Crawl:</label>
+		<textarea name="opening_crawl"></textarea>
+		<button type="submit">Update</button>
+	</form>
+</body>
+</html>
