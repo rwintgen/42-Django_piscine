@@ -13,7 +13,7 @@ def connect_to_db():
 		port=settings.DATABASES['default']['PORT'],
 	)
 
-def init_db(request):
+def init_table(request):
 	try:
 		with connect_to_db() as conn:
 			with conn.cursor() as cur:

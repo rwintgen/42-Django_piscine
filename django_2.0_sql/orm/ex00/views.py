@@ -4,7 +4,7 @@ from django.conf import settings
 import psycopg2
 
 # Create your views here.
-def init_db(request):
+def init_table(request):
 	try:
 		with psycopg2.connect(
 			dbname=settings.DATABASES['default']['NAME'],
