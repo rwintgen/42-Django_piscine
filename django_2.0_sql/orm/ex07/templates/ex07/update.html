@@ -11,12 +11,14 @@
 	<form method="post">
 		{% csrf_token %}
 		<label>Select a movie:</label>
-		<select name="title">
+		<select name="episode_nb">
 			{% for movie in movies %}
-			<option value="{{ movie.title }}">{{ movie.title }}</option>
+			<option value="{{ movie.0 }}">{{ movie.1 }}</option>
 			{% endfor %}
 		</select>
-		<button type="submit">Remove</button>
+		<label>New Opening Crawl:</label>
+		<textarea name="opening_crawl"></textarea>
+		<button type="submit">Update</button>
 	</form>
 </body>
 </html>
