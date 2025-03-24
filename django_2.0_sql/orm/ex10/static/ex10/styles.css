@@ -1,0 +1,29 @@
+table, th, td {
+	border: 1px solid black; border-collapse: collapse; padding: 8px;
+	margin: auto;
+}
+
+form {
+	margin: 20px auto;
+	padding: 10px;
+	border: 1px solid black;
+	width: 300px;
+}
+
+label, select, textarea, button, p {
+	display: block;
+	width: 100%;
+	margin-top: 5px;
+}
+
+textarea {
+	height: 80px;
+}
+
+button {
+	margin-top: 10px;
+}
+
+#no-results {
+	text-align: center;
+}

@@ -1,0 +1,46 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Search</title>
+	<link rel="stylesheet" href="{% static css_file %}">
+</head>
+<body>
+	<form method="post">
+		{% csrf_token %}
+		{{ form.as_p }}
+		<button type="submit">Search</button>
+	</form>
+
+	{% if query_failed == True %}
+		<p id="no-results">Nothing corresponding to your research</p>
+	{% else %}
+		<table>
+			<thead>
+				<tr>
+					<th>Film Title</th>
+					<th>Character Name</th>
+					<th>Gender</th>
+					<th>Homeworld</th>
+					<th>Homeworld Diameter</th>
+				</tr>
+			</thead>
+			<tbody>
+				{% for character in result %}
+					{% for movie in character.movies.all %}
+					<tr>
+						<td>{{ movie.title }}</td>
+						<td>{{ character.name }}</td>
+						<td>{{ character.gender }}</td>
+						<td>{{ character.homeworld.name }}</td>
+						<td>{{ character.homeworld.diameter }}</td>
+					</tr>
+					{% endfor %}
+				{% endfor %}
+			</tbody>
+		</table>
+	{% endif %}
+</body>
+</html>
