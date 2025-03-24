@@ -16,9 +16,9 @@
 		</tr>
 		{% for character in characters %}
 		<tr>
-			{% for field in character %}
-			<td>{{ field|default:"-" }}</td>
-			{% endfor %}
+			<td>{{ character.name|default:"-" }}</td>
+			<td>{{ character.homeworld.name|default:"-" }}</td>
+			<td>{{ character.homeworld.climate|default:"-" }}</td>
 		</tr>
 		{% endfor %}
 	</table>
