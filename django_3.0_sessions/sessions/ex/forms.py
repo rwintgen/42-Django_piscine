@@ -26,3 +26,10 @@ class PostTipForm(forms.ModelForm):
 	class Meta:
 		model = Tip
 		fields = ['content']
+		widgets = {
+			'content': forms.Textarea(attrs={
+				'class': 'form-control',
+				'placeholder': 'Share your life pro tip here...',
+				'rows': 3
+			}),
+		}

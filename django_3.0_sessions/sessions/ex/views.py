@@ -1,26 +1,58 @@
+import random
 from django.shortcuts import render
 from django.conf import settings
 from django.utils.timezone import now
-import random
 from django.http import JsonResponse
-
 from django.contrib.auth import login, authenticate, logout
 from django.shortcuts import redirect
 from .forms import SignUpForm, LogInForm, PostTipForm
 from .models import Tip
+from django.shortcuts import get_object_or_404
 
 # Create your views here.
+def handle_creation(request):
+	form = PostTipForm(request.POST)
+	if form.is_valid():
+		tip = form.save(commit=False)
+		tip.author = request.user
+		tip.save()
+
+def handle_upvote(request, tip_id):
+	tip = get_object_or_404(Tip, id=tip_id)
+	if request.user in tip.downvotes.all():
+		tip.downvotes.remove(request.user)
+	if request.user in tip.upvotes.all():
+		tip.upvotes.remove(request.user)
+	else:
+		tip.upvotes.add(request.user)
+
+def handle_downvote(request, tip_id):
+	tip = get_object_or_404(Tip, id=tip_id)
+	if request.user in tip.upvotes.all():
+		tip.upvotes.remove(request.user)
+	if request.user in tip.downvotes.all():
+		tip.downvotes.remove(request.user)
+	else:
+		tip.downvotes.add(request.user)
+
+def handle_delete(request, tip_id):
+	tip = get_object_or_404(Tip, id=tip_id)
+	tip.delete()
+
 def homepage(request):
 	if request.user.is_authenticated:
 		username = request.user.username
 
 		if request.method == "POST":
-			form = PostTipForm(request.POST)
-			if form.is_valid():
-				tip = form.save(commit=False)
-				tip.author = request.user
-				tip.save()
-				return redirect("homepage")
+			if "create_tip" in request.POST:
+				handle_creation(request)
+			elif "upvote" in request.POST:
+				handle_upvote(request, request.POST.get("tip_id"))
+			elif "downvote" in request.POST:
+				handle_downvote(request, request.POST.get("tip_id"))
+			elif "delete" in request.POST:
+				handle_delete(request, request.POST.get("tip_id"))
+			return redirect("homepage")
 		else:
 			form = PostTipForm()
 	else:

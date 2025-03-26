@@ -1,0 +1,39 @@
+<div class="mt-4">
+	<h3>All Tips</h3>
+	{% for tip in tips %}
+		<div class="card mb-3">
+			<div class="card-body">
+				<p class="card-text">{{ tip.content }}</p>
+				<p class="text-muted small">By {{ tip.author.username }} on {{ tip.date|date:"F j, Y, g:i a" }}</p>
+			</div>
+			<div class="card-footer bg-light">
+				<form method="post" class="d-inline me-2">
+					{% csrf_token %}
+					<input type="hidden" name="tip_id" value="{{ tip.id }}">
+					<button type="submit" name="upvote" class="btn btn-success btn-sm"
+					{% if not user.is_authenticated %} disabled {% endif %}>
+						Upvote ({{ tip.upvotes_count }})
+					</button>
+				</form>
+				<form method="post" class="d-inline me-2">
+					{% csrf_token %}
+					<input type="hidden" name="tip_id" value="{{ tip.id }}">
+					<button type="submit" name="downvote" class="btn btn-danger btn-sm"
+					{% if not user.is_authenticated %} disabled {% endif %}>
+						Downvote ({{ tip.downvotes_count }})
+					</button>
+				</form>
+				<form method="post" class="d-inline">
+					{% csrf_token %}
+					<input type="hidden" name="tip_id" value="{{ tip.id }}">
+					<button type="submit" name="delete" class="btn btn-outline-secondary btn-sm"
+					{% if not user.is_authenticated %} disabled {% endif %}>
+						Delete
+					</button>
+				</form>
+			</div>
+		</div>
+	{% empty %}
+		<p>No tips yet. Be the first to share one!</p>
+	{% endfor %}
+</div>
