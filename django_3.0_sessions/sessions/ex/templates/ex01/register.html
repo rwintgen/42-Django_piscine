@@ -1,10 +1,27 @@
 {% extends "ex00/base.html" %}
 
 {% block content %}
-<h2>Sign Up</h2>
-<form method="post">
-	{% csrf_token %}
-	{{ form.as_p }}
-	<button type="submit" class="btn btn-primary">Sign Up</button>
-</form>
+<div class="container mt-5">
+	<div class="row justify-content-center">
+		<div class="col-md-6">
+			<h2 class="text-center mb-4">Sign Up</h2>
+			<form method="post" class="p-4 border rounded shadow-sm bg-light">
+				{% csrf_token %}
+				<div class="mb-3">
+					<label for="id_username" class="form-label d-block">Username</label>
+					{{ form.username }}
+				</div>
+				<div class="mb-3">
+					<label for="id_password" class="form-label d-block">Password</label>
+					{{ form.password }}
+				</div>
+				<div class="mb-3">
+					<label for="id_password_confirm" class="form-label d-block">Confirm Password</label>
+					{{ form.password_confirm }}
+				</div>
+				<button type="submit" class="btn btn-primary w-100">Sign Up</button>
+			</form>
+		</div>
+	</div>
+</div>
 {% endblock %}
