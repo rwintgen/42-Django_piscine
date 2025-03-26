@@ -10,15 +10,27 @@
 				<div class="mb-3">
 					<label for="id_username" class="form-label d-block">Username</label>
 					{{ form.username }}
+					{% if form.username.errors %}
+						<div class="text-danger small">{{ form.username.errors|join:", " }}</div>
+					{% endif %}
 				</div>
 				<div class="mb-3">
 					<label for="id_password" class="form-label d-block">Password</label>
 					{{ form.password }}
+					{% if form.password.errors %}
+						<div class="text-danger small">{{ form.password.errors|join:", " }}</div>
+					{% endif %}
 				</div>
 				<div class="mb-3">
 					<label for="id_password_confirm" class="form-label d-block">Confirm Password</label>
 					{{ form.password_confirm }}
+					{% if form.password_confirm.errors %}
+						<div class="text-danger small">{{ form.password_confirm.errors|join:", " }}</div>
+					{% endif %}
 				</div>
+				{% if form.non_field_errors %}
+					<div class="text-danger small mb-3">{{ form.non_field_errors|join:", " }}</div>
+				{% endif %}
 				<button type="submit" class="btn btn-primary w-100">Sign Up</button>
 			</form>
 		</div>
