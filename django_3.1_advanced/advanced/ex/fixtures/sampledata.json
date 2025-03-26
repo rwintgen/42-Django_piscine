@@ -1,0 +1,87 @@
+[
+    {
+        "model": "auth.user",
+        "pk": 1,
+        "fields": {
+            "username": "user1",
+            "password": "pbkdf2_sha256$260000$examplepasswordhash",
+            "is_superuser": false,
+            "is_staff": false
+        }
+    },
+    {
+        "model": "auth.user",
+        "pk": 2,
+        "fields": {
+            "username": "user2",
+            "password": "pbkdf2_sha256$260000$examplepasswordhash",
+            "is_superuser": false,
+            "is_staff": false
+        }
+    },
+    {
+        "model": "auth.user",
+        "pk": 3,
+        "fields": {
+            "username": "user3",
+            "password": "pbkdf2_sha256$260000$examplepasswordhash",
+            "is_superuser": false,
+            "is_staff": false
+        }
+    },
+    {
+        "model": "ex.article",
+        "pk": 1,
+        "fields": {
+            "title": "Article 1",
+            "author": 1,
+            "created": "2025-03-26T10:00:00",
+            "synopsis": "This is the synopsis of Article 1.",
+            "content": "Lorem ipsum dolor sit amet, consectetur adipiscing elit."
+        }
+    },
+    {
+        "model": "ex.article",
+        "pk": 2,
+        "fields": {
+            "title": "Article 2",
+            "author": 2,
+            "created": "2025-03-26T11:00:00",
+            "synopsis": "This is the synopsis of Article 2.",
+            "content": "Lorem ipsum dolor sit amet, consectetur adipiscing elit."
+        }
+    },
+    {
+        "model": "ex.article",
+        "pk": 3,
+        "fields": {
+            "title": "Article 3",
+            "author": 3,
+            "created": "2025-03-26T12:00:00",
+            "synopsis": "This is the synopsis of Article 3.",
+            "content": "Lorem ipsum dolor sit amet, consectetur adipiscing elit."
+        }
+    },
+    {
+        "model": "ex.article",
+        "pk": 4,
+        "fields": {
+            "title": "Article 4",
+            "author": 1,
+            "created": "2025-03-26T13:00:00",
+            "synopsis": "This is the synopsis of Article 4.",
+            "content": "Lorem ipsum dolor sit amet, consectetur adipiscing elit."
+        }
+    },
+    {
+        "model": "ex.article",
+        "pk": 5,
+        "fields": {
+            "title": "Article 5",
+            "author": 2,
+            "created": "2025-03-26T14:00:00",
+            "synopsis": "This is the synopsis of Article 5.",
+            "content": "Lorem ipsum dolor sit amet, consectetur adipiscing elit."
+        }
+    }
+]
