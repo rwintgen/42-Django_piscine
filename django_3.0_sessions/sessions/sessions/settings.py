@@ -78,8 +78,8 @@ SESSION_ENGINE = "django.contrib.sessions.backends.db"
 SESSION_COOKIE_AGE = 42
 
 USERNAMES = [
-	"Colon", "Phelony", "Abstinence", "Bacardi", "Lasagna",
-	"Popeye", "Gassy", "Brick", "Jammy", "Meldor"
+	"Guest", "Invité", "Invitado", "Ospite", "Gast",
+	"Gość", "Gjest", "Vieras", "Vendég", "Misafir"
 ]
 
 
