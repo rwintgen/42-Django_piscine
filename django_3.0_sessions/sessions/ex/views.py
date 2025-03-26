@@ -26,6 +26,9 @@ def handle_upvote(request, tip_id):
 	else:
 		tip.upvotes.add(request.user)
 
+	if tip.author:
+		tip.author.update_reputation()
+
 def handle_downvote(request, tip_id):
 	tip = get_object_or_404(Tip, id=tip_id)
 	if tip.author == request.user or request.user.has_perm("ex.can_downvote_tip"):
@@ -35,11 +38,17 @@ def handle_downvote(request, tip_id):
 			tip.downvotes.remove(request.user)
 		else:
 			tip.downvotes.add(request.user)
+	
+	if tip.author:
+		tip.author.update_reputation()
 
 def handle_delete(request, tip_id):
 	tip = get_object_or_404(Tip, id=tip_id)
-	if tip.author == request.user or request.user.has_perm("delete_tip"):
+	tip_author = tip.author
+	if tip.author == request.user or request.user.has_perm("ex.delete_tip"):
 		tip.delete()
+		if tip_author:
+			tip_author.update_reputation()
 
 def homepage(request):
 	if request.user.is_authenticated:
@@ -55,7 +64,7 @@ def homepage(request):
 			elif "downvote" in request.POST:
 				handle_downvote(request, request.POST.get("tip_id"))
 			elif "delete" in request.POST:
-				to_del = handle_delete(request, request.POST.get("tip_id"))
+				handle_delete(request, request.POST.get("tip_id"))
 			return redirect("homepage")
 		else:
 			form = PostTipForm()
@@ -63,7 +72,7 @@ def homepage(request):
 		username = request.session.get("username")
 		username_timestamp = request.session.get("username_timestamp")
 
-		if not username or not username_timestamp or (now().timestamp() - username_timestamp > settings.SESSION_COOKIE_AGE):
+		if not username or not username_timestamp or (now().timestamp() - username_timestamp > settings.ANONYMOUS_COOKIE_AGE):
 			request.session["username"] = random.choice(settings.USERNAMES)
 			request.session["username_timestamp"] = now().timestamp()
 			username = request.session["username"]
@@ -118,6 +127,7 @@ def log_in(request):
 			user = authenticate(request, username=username, password=password)
 			if user is not None:
 				login(request, user)
+				request.session.set_expiry(None)
 				return redirect('homepage')
 			else:
 				form.add_error(None, "Invalid username or password.")

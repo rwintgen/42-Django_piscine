@@ -4,7 +4,14 @@
 		<div class="card mb-3">
 			<div class="card-body">
 				<p class="card-text">{{ tip.content }}</p>
-				<p class="text-muted small">By {{ tip.author.username }} on {{ tip.date|date:"F j, Y, g:i a" }}</p>
+				<p class="text-muted small">
+					By 
+					{% if tip.author %}
+						{{ tip.author.username }} ({{ tip.author.reputation }})
+					{% else %}
+						[Deleted account]
+					{% endif %}
+					on {{ tip.date|date:"F j, Y, g:i a" }}
 			</div>
 			<div class="card-footer bg-light">
 				<form method="post" class="d-inline me-2">

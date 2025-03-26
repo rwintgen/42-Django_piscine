@@ -4,4 +4,4 @@ function updateUsername() {
 		.then(data => {document.getElementById('username-display').innerText = `Hello, ${data.username}!`});
 }
 
-setInterval(updateUsername, 1000);
+setInterval(updateUsername, 4200);

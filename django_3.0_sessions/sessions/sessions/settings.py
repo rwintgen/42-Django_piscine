@@ -75,7 +75,8 @@ WSGI_APPLICATION = 'sessions.wsgi.application'
 
 SESSION_ENGINE = "django.contrib.sessions.backends.db"
 
-SESSION_COOKIE_AGE = 42
+SESSION_COOKIE_AGE = 3600
+ANONYMOUS_COOKIE_AGE = 42
 
 USERNAMES = [
 	"Guest", "Invité", "Invitado", "Ospite", "Gast",
