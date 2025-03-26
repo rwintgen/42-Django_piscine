@@ -1,5 +1,5 @@
 from django import forms
-from .models import CustomUser
+from .models import CustomUser, Tip
 
 class SignUpForm(forms.ModelForm):
 	password = forms.CharField(widget=forms.PasswordInput, label="Password")
@@ -21,3 +21,8 @@ class SignUpForm(forms.ModelForm):
 class LogInForm(forms.Form):
 	username = forms.CharField(max_length=150, label="Username")
 	password = forms.CharField(widget=forms.PasswordInput, label="Password")
+
+class PostTipForm(forms.ModelForm):
+	class Meta:
+		model = Tip
+		fields = ['content']

@@ -4,16 +4,25 @@ from django.utils.timezone import now
 import random
 from django.http import JsonResponse
 
-from django.contrib.auth.models import User
 from django.contrib.auth import login, authenticate, logout
 from django.shortcuts import redirect
-from .forms import SignUpForm
-from .forms import LogInForm
+from .forms import SignUpForm, LogInForm, PostTipForm
+from .models import Tip
 
 # Create your views here.
 def homepage(request):
 	if request.user.is_authenticated:
 		username = request.user.username
+
+		if request.method == "POST":
+			form = PostTipForm(request.POST)
+			if form.is_valid():
+				tip = form.save(commit=False)
+				tip.author = request.user
+				tip.save()
+				return redirect("homepage")
+		else:
+			form = PostTipForm()
 	else:
 		username = request.session.get("username")
 		username_timestamp = request.session.get("username_timestamp")
@@ -23,10 +32,18 @@ def homepage(request):
 			request.session["username_timestamp"] = now().timestamp()
 			username = request.session["username"]
 
+		form = None
+	
+	tips = Tip.objects.all().order_by("-date")
+
 	if request.headers.get('x-requested-with') == 'XMLHttpRequest':
 		return JsonResponse({"username": username})
 
-	context = {"username": username}
+	context = {
+		"username": username,
+		"form": form,
+		"tips": tips
+	}
 	return render(request, "ex/homepage.html", context)
 
 def sign_up(request):
@@ -67,7 +84,8 @@ def log_in(request):
 	else:
 		form = LogInForm()
 
-	return render(request, "ex/login.html", {"form": form})
+	context = {"form" : form}
+	return render(request, "ex/login.html", context)
 
 def log_out(request):
 	logout(request)

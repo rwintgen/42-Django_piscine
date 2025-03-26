@@ -2,10 +2,40 @@
 
 {% block content %}
 <div class="container mt-5">
-	<div class="row">
-		<div class="col-md-12 text-center">
-			<h1 class="display-4">Welcome to Life Pro Tips</h1>
-			<p class="lead">Share your best tips for life!</p>
+	<div class="row justify-content-center">
+		<div class="col-md-8">
+			<div class="text-center mb-5">
+				<h1 class="display-4">Welcome to Life Pro Tips</h1>
+				<p class="lead">Share your best tips for life!</p>
+			</div>
+			{% if user.is_authenticated %}
+				<div class="mb-5">
+					<h3>Share a Tip</h3>
+					<form method="post" class="p-4 border rounded shadow-sm bg-light">
+						{% csrf_token %}
+						<div class="mb-3">
+							<label for="id_content" class="form-label d-block">Your Tip</label>
+							{{ form.content }}
+						</div>
+						<button type="submit" class="btn btn-primary w-100">Submit Tip</button>
+					</form>
+				</div>
+			{% endif %}
+			<div class="mt-4">
+				<h3>All Tips</h3>
+				{% for tip in tips %}
+					<div class="card mb-3">
+						<div class="card-body">
+							<p class="card-text">{{ tip.content }}</p>
+							<p class="text-muted small">
+								By {{ tip.author.username }} on {{ tip.date|date:"F j, Y, g:i a" }}
+							</p>
+						</div>
+					</div>
+				{% empty %}
+					<p class="text-center">No tips yet. Be the first to share one!</p>
+				{% endfor %}
+			</div>
 		</div>
 	</div>
 </div>
