@@ -82,6 +82,8 @@ USERNAMES = [
 	"Gość", "Gjest", "Vieras", "Vendég", "Misafir"
 ]
 
+AUTH_USER_MODEL = 'ex.CustomUser'
+
 
 # Database
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases

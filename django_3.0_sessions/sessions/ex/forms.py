@@ -1,12 +1,12 @@
 from django import forms
-from django.contrib.auth.models import User
+from .models import CustomUser
 
 class SignUpForm(forms.ModelForm):
 	password = forms.CharField(widget=forms.PasswordInput, label="Password")
 	password_confirm = forms.CharField(widget=forms.PasswordInput, label="Confirm Password")
 
 	class Meta:
-		model = User
+		model = CustomUser
 		fields = ['username']
 
 	def clean(self):
