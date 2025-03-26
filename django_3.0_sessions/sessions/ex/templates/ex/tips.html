@@ -23,14 +23,15 @@
 						Downvote ({{ tip.downvotes_count }})
 					</button>
 				</form>
+				{% if user.is_authenticated and has_delete_perm or tip.author == user %}
 				<form method="post" class="d-inline">
 					{% csrf_token %}
 					<input type="hidden" name="tip_id" value="{{ tip.id }}">
-					<button type="submit" name="delete" class="btn btn-outline-secondary btn-sm"
-					{% if not user.is_authenticated %} disabled {% endif %}>
+					<button type="submit" name="delete" class="btn btn-outline-secondary btn-sm">
 						Delete
 					</button>
 				</form>
+				{% endif %}
 			</div>
 		</div>
 	{% empty %}
