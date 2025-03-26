@@ -18,3 +18,8 @@ class Tip(models.Model):
 
 	def downvotes_count(self):
 		return self.downvotes.count()
+	
+	class Meta:
+		permissions = [
+			("can_downvote_tip", "Can downvote tip")
+		]

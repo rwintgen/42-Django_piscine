@@ -19,7 +19,7 @@
 					{% csrf_token %}
 					<input type="hidden" name="tip_id" value="{{ tip.id }}">
 					<button type="submit" name="downvote" class="btn btn-danger btn-sm"
-					{% if not user.is_authenticated %} disabled {% endif %}>
+					{% if not user.is_authenticated or not has_downvote_perm and not tip.author == user %} disabled {% endif %}>
 						Downvote ({{ tip.downvotes_count }})
 					</button>
 				</form>

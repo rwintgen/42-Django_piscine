@@ -28,12 +28,13 @@ def handle_upvote(request, tip_id):
 
 def handle_downvote(request, tip_id):
 	tip = get_object_or_404(Tip, id=tip_id)
-	if request.user in tip.upvotes.all():
-		tip.upvotes.remove(request.user)
-	if request.user in tip.downvotes.all():
-		tip.downvotes.remove(request.user)
-	else:
-		tip.downvotes.add(request.user)
+	if tip.author == request.user or request.user.has_perm("ex.can_downvote_tip"):
+		if request.user in tip.upvotes.all():
+			tip.upvotes.remove(request.user)
+		if request.user in tip.downvotes.all():
+			tip.downvotes.remove(request.user)
+		else:
+			tip.downvotes.add(request.user)
 
 def handle_delete(request, tip_id):
 	tip = get_object_or_404(Tip, id=tip_id)
@@ -44,6 +45,7 @@ def homepage(request):
 	if request.user.is_authenticated:
 		username = request.user.username
 		has_delete_perm = request.user.has_perm("ex.delete_tip")
+		has_downvote_perm = request.user.has_perm("ex.can_downvote_tip")
 
 		if request.method == "POST":
 			if "create_tip" in request.POST:
@@ -68,6 +70,7 @@ def homepage(request):
 
 		form = None
 		has_delete_perm = False
+		has_downvote_perm = False
 	
 	tips = Tip.objects.all().order_by("-date")
 
@@ -78,7 +81,8 @@ def homepage(request):
 		"username": username,
 		"form": form,
 		"tips": tips,
-		"has_delete_perm" : has_delete_perm
+		"has_delete_perm" : has_delete_perm,
+		"has_downvote_perm" : has_downvote_perm
 	}
 	return render(request, "ex/homepage.html", context)
 
