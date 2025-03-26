@@ -27,7 +27,7 @@ def homepage(request):
 		return JsonResponse({"username": username})
 
 	context = {"username": username}
-	return render(request, "ex00/homepage.html", context)
+	return render(request, "ex/homepage.html", context)
 
 def sign_up(request):
 	if request.user.is_authenticated:
@@ -46,7 +46,7 @@ def sign_up(request):
 		form = SignUpForm()
 
 	context = {"form" : form}
-	return render(request, "ex01/register.html", context)
+	return render(request, "ex/register.html", context)
 	
 def log_in(request):
 	if request.user.is_authenticated:
@@ -67,7 +67,7 @@ def log_in(request):
 	else:
 		form = LogInForm()
 
-	return render(request, "ex01/login.html", {"form": form})
+	return render(request, "ex/login.html", {"form": form})
 
 def log_out(request):
 	logout(request)
