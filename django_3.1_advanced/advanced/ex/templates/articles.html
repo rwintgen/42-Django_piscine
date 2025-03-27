@@ -4,7 +4,7 @@
 
 {% block content %}
 <h1>Articles</h1>
-<table>
+<table class="table table-hover">
 	<thead>
 		<tr>
 			<th>Title</th>
@@ -20,7 +20,7 @@
 			<td><a href="{% url 'article_detail' article.pk %}">{{ article.title }}</td>
 			<td>{{ article.author.username }}</td>
 			<td>{{ article.created }}</td>
-			<td>{{ article.created|timesince }} ago</td>
+			<td>{{ article.created|timesince }}</td>
 			<td>{{ article.synopsis|truncatechars:20 }}</td>
 		</tr>
 		{% endfor %}
