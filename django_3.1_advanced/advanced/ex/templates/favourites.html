@@ -5,8 +5,8 @@
 {% block content %}
 <h1>Favourite Articles</h1>
 <ul>
-	{% for article in favourites %}
-	<li><a href="{% url 'article_detail' article.pk %}">{{ article.title }}</a></li>
+	{% for favourite in favourites %}
+	<li><a href="{% url 'article_detail' favourite.article.pk %}">{{ favourite.article.title }}</a></li>
 	{% endfor %}
 </ul>
 {% endblock %}

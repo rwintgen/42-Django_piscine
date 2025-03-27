@@ -2,7 +2,8 @@ from .models import Article, UserFavouriteArticle
 from .forms import RegisterForm
 from django.views.generic import ListView, RedirectView, FormView, DetailView
 from django.urls import reverse_lazy
-from django.contrib.auth import login
+from django.shortcuts import redirect
+from django.contrib.auth import login, logout
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.models import User
@@ -44,7 +45,7 @@ class ArticleDetailView(DetailView):
 	context_object_name = "article"
 
 class LogoutView(RedirectView):
-	redirect_url = reverse_lazy("home")
+	url = reverse_lazy("home")
 
 	def get(self, request, *args, **kwargs):
 		logout(request)
@@ -61,17 +62,25 @@ class FavouritesListView(LoginRequiredMixin, ListView):
 class RegisterView(CreateView):
 	model = User
 	template_name = "register.html"
-	success_url = reverse_lazy("login")
 	form_class = RegisterForm
+	success_url = reverse_lazy("login")
+
+	def form_valid(self, form):
+		new_user = form.save(commit=False)
+		new_user.set_password(form.cleaned_data["password"])
+		new_user.save()
+		login(self.request, new_user)
+		return redirect("home")
 
 class PublishView(LoginRequiredMixin, CreateView):
 	model = Article
 	template_name = "publish.html"
-	fields = ["tite", "synopsis", "content"]
+	fields = ["title", "synopsis", "content"]
+	success_url = reverse_lazy("publications")
 
 	def form_valid(self, form):
 		form.instance.author = self.request.user
-		return super.form_valid(form)
+		return super().form_valid(form)
 
 class AddToFavouriteView(LoginRequiredMixin, CreateView):
 	model = UserFavouriteArticle
@@ -81,4 +90,5 @@ class AddToFavouriteView(LoginRequiredMixin, CreateView):
 
 	def form_valid(self, form):
 		form.instance.user = self.request.user
+		form.instance.article = Article.objects.get(pk=self.kwargs["pk"])
 		return super().form_valid(form)
