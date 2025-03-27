@@ -19,7 +19,6 @@ class HomeRedirectView(RedirectView):
 	url = reverse_lazy("articles")
 
 class LoginView(FormView):
-	template_name = "login.html"
 	form_class = AuthenticationForm
 	success_url = reverse_lazy("home")
 
@@ -37,7 +36,7 @@ class PublicationsListView(LoginRequiredMixin, ListView):
 	context_object_name = "articles"
 
 	def get_queryset(self):
-		return Article.objects.filter(author=self.request.user)
+		return Article.objects.filter(author=self.request.user).order_by("-created")
 
 class ArticleDetailView(DetailView):
 	model = Article
@@ -57,7 +56,7 @@ class FavouritesListView(LoginRequiredMixin, ListView):
 	context_object_name = "favourites"
 
 	def get_queryset(self):
-		return UserFavouriteArticle.objects.filter(user=self.request.user)
+		return UserFavouriteArticle.objects.filter(user=self.request.user).order_by("-created")
 
 class RegisterView(CreateView):
 	model = User
