@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+
+{% block title %}42NN - {{ article.title }}{% endblock %}
+
+{% block content %}
+<h1>{{ article.title }}</h1>
+<h3>By {{ article.author }} on {{ article.created }}</h3>
+<h4><strong>{{ article.synopsis }}</strong></h4>
+<p>{{ article.content }}</p>
+{% endblock %}

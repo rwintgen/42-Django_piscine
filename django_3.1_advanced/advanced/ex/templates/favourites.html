@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+
+{% block title %}42NN - {{ article.title }}{% endblock %}
+
+{% block content %}
+<h1>Favourite Articles</h1>
+<ul>
+	{% for article in favourites %}
+	<li><a href="{% url 'article_detail' article.pk %}">{{ article.title }}</a></li>
+	{% endfor %}
+</ul>
+{% endblock %}

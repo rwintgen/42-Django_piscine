@@ -1,8 +1,10 @@
-from django.views.generic import ListView, RedirectView, FormView
-from .models import Article
+from .models import Article, UserFavouriteArticle
+from django.views.generic import ListView, RedirectView, FormView, DetailView
 from django.urls import reverse_lazy
-from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth import login
+from django.contrib.auth.forms import AuthenticationForm
+from django.contrib.auth.mixins import LoginRequiredMixin
+
 
 # Create your views here.
 class ArticleListView(ListView):
@@ -25,3 +27,31 @@ class LoginView(FormView):
 
 	def form_invalid(self, form):
 		return self.render_to_response(self.get_context_data(form=form))
+
+class PublicationsListView(LoginRequiredMixin, ListView):
+	model = Article
+	template_name = "publications.html"
+	context_object_name = "articles"
+
+	def get_queryset(self):
+		return Article.objects.filter(author=self.request.user)
+
+class ArticleDetailView(DetailView):
+	model = Article
+	template_name = "article_detail.html"
+	context_object_name = "article"
+
+class LogoutView(RedirectView):
+	redirect_url = reverse_lazy("home")
+
+	def get(self, request, *args, **kwargs):
+		logout(request)
+		return super().get(request, *args, **kwargs)
+
+class FavouritesListView(LoginRequiredMixin, ListView):
+	model = UserFavouriteArticle
+	template_name = "favourites.html"
+	context_object_name = "favourites"
+
+	def get_queryset(self):
+		return UserFavouriteArticle.objects.filter(user=self.request.user)
