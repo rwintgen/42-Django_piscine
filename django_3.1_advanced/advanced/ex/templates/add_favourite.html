@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+
+{% block title %}42NN - {{ article.title }}{% endblock %}
+
+{% block content %}
+<h1>Add to Favourites</h1>
+<form method="post">
+	{% csrf_token %}
+	<button type="submit">Add to Favourites</button>
+</form>
+{% endblock %}

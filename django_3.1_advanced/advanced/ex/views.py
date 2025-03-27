@@ -1,10 +1,12 @@
 from .models import Article, UserFavouriteArticle
+from .forms import RegisterForm
 from django.views.generic import ListView, RedirectView, FormView, DetailView
 from django.urls import reverse_lazy
 from django.contrib.auth import login
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth.mixins import LoginRequiredMixin
-
+from django.contrib.auth.models import User
+from django.views.generic.edit import CreateView
 
 # Create your views here.
 class ArticleListView(ListView):
@@ -55,3 +57,28 @@ class FavouritesListView(LoginRequiredMixin, ListView):
 
 	def get_queryset(self):
 		return UserFavouriteArticle.objects.filter(user=self.request.user)
+
+class RegisterView(CreateView):
+	model = User
+	template_name = "register.html"
+	success_url = reverse_lazy("login")
+	form_class = RegisterForm
+
+class PublishView(LoginRequiredMixin, CreateView):
+	model = Article
+	template_name = "publish.html"
+	fields = ["tite", "synopsis", "content"]
+
+	def form_valid(self, form):
+		form.instance.author = self.request.user
+		return super.form_valid(form)
+
+class AddToFavouriteView(LoginRequiredMixin, CreateView):
+	model = UserFavouriteArticle
+	template_name = "add_favourite.html"
+	fields = []
+	success_url = reverse_lazy("favourites")
+
+	def form_valid(self, form):
+		form.instance.user = self.request.user
+		return super().form_valid(form)

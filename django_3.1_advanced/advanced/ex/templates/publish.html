@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+
+{% block title %}42NN - {{ article.title }}{% endblock %}
+
+{% block content %}
+<h1>Publish a New Article</h1>
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Publish</button>
+</form>
+{% endblock %}
