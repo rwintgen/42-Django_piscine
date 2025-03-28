@@ -2,14 +2,18 @@
 
 {% block title %}42NN - Publications{% endblock %}
 
+{% block page_title %}42NN - Publications{% endblock %}
+
+{% block page_subtitle %}Articles you authored{% endblock %}
+
 {% block content %}
-<h1>Articles</h1>
-<a href="{% url 'publish' %}">Publish a New Article</a>
+<a href="{% url 'publish' %}" class="btn btn-primary mb-4">Publish a New Article</a>
 <table>
 	<thead>
 		<tr>
 			<th>Title</th>
 			<th>Synopsis</th>
+			<th>Author</th>
 			<th>Created</th>
 			<th>Published for</th>
 		</tr>
@@ -17,10 +21,14 @@
 	<tbody>
 		{% for article in articles %}
 		<tr>
-			<td><a href="{% url 'article_detail' article.pk %}">{{ article.title }}</td>
-			<td>{{ article.synopsis|truncatechars:20 }}</td>
+			<td><a href="{% url 'article_detail' article.pk %}" class="text-decoration-none text-black">{{ article.title|truncatechars:20 }}</a></td>
+			<td>{{ article.synopsis }}</td>
+			<td>{{ article.author.username }}</td>
 			<td>{{ article.created }}</td>
 			<td>{{ article.created|timesince }}</td>
+			<td>
+				<a href="{% url 'article_detail' article.pk %}" class="btn btn-primary">Read</a>
+			</td>
 		</tr>
 		{% endfor %}
 	</tbody>

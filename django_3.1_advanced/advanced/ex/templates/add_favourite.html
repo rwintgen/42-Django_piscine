@@ -1,11 +1,14 @@
 {% extends "base.html" %}
 
-{% block title %}42NN - {{ article.title }}{% endblock %}
+{% block title %}42NN - Add Favourite{% endblock %}
+
+{% block page_title %}42NN - Add Favourite{% endblock %}
+
+{% block page_subtitle %}Articles added as Favourite will be saved to your Favourite section{% endblock %}
 
 {% block content %}
-<h1>Add to Favourites</h1>
 <form method="post">
 	{% csrf_token %}
-	<button type="submit">Add to Favourites</button>
+	<button type="submit" class="btn btn-primary">Add to Favourites</button>
 </form>
 {% endblock %}

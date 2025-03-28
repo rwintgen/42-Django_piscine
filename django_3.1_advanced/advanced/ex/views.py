@@ -56,7 +56,7 @@ class FavouritesListView(LoginRequiredMixin, ListView):
 	context_object_name = "favourites"
 
 	def get_queryset(self):
-		return UserFavouriteArticle.objects.filter(user=self.request.user).order_by("-created")
+		return UserFavouriteArticle.objects.filter(user=self.request.user).order_by("-article__created")
 
 class RegisterView(CreateView):
 	model = User

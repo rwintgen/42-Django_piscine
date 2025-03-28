@@ -2,8 +2,11 @@
 
 {% block title %}42NN - Favourites{% endblock %}
 
+{% block page_title %}42NN - Favourites{% endblock %}
+
+{% block page_subtitle %}Articles you added as favourite{% endblock %}
+
 {% block content %}
-<h1>Favourite Articles</h1>
 <ul>
 	{% for favourite in favourites %}
 	<li><a href="{% url 'article_detail' favourite.article.pk %}">{{ favourite.article.title }}</a></li>

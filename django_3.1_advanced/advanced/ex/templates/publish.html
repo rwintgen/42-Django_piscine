@@ -2,11 +2,14 @@
 
 {% block title %}42NN - {{ article.title }}{% endblock %}
 
+{% block page_title %}42NN - Publish{% endblock %}
+
+{% block page_subtitle %}Make your story available to the world{% endblock %}
+
 {% block content %}
-<h1>Publish a New Article</h1>
 <form method="post">
     {% csrf_token %}
     {{ form.as_p }}
-    <button type="submit">Publish</button>
+    <button type="submit" class="btn btn-primary">Publish</button>
 </form>
 {% endblock %}
