@@ -20,6 +20,7 @@ class HomeRedirectView(RedirectView):
 
 class LoginView(FormView):
 	form_class = AuthenticationForm
+	template_name = "login.html"
 	success_url = reverse_lazy("home")
 
 	def form_valid(self, form):
@@ -28,6 +29,9 @@ class LoginView(FormView):
 		return super().form_valid(form)
 
 	def form_invalid(self, form):
+		print("Login failed.")  # Debug: Print when login fails
+		print(f"Form errors: {form.errors}")  # Debug: Print form errors
+		print(f"Non-field errors: {form.non_field_errors()}")  # Debug: Print non-field errors
 		return self.render_to_response(self.get_context_data(form=form))
 
 class PublicationsListView(LoginRequiredMixin, ListView):
