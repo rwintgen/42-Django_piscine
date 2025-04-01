@@ -1,14 +1,15 @@
 {% extends "base.html" %}
+{% load i18n %}
 
 {% block content %}
 <table class="table table-hover">
 	<thead>
 		<tr>
-			<th>Title</th>
-			<th>Synopsis</th>
-			<th>Author</th>
-			<th>Created</th>
-			<th>Published for</th>
+			<th>{% trans "Title" %}</th>
+			<th>{% trans "Synopsis" %}</th>
+			<th>{% trans "Author" %}</th>
+			<th>{% trans "Created" %}</th>
+			<th>{% trans "Published for" %}</th>
 		</tr>
 	</thead>
 	<tbody>
@@ -20,7 +21,7 @@
 			<td>{{ article.created }}</td>
 			<td>{{ article.created|timesince }}</td>
 			<td>
-				<a href="{% url 'article_detail' article.pk %}" class="btn btn-primary">Read</a>
+				<a href="{% url 'article_detail' article.pk %}" class="btn btn-primary">{% trans "Read" %}</a>
 			</td>
 		</tr>
 		{% endfor %}
