@@ -68,6 +68,11 @@ class RegisterView(CreateView):
 	form_class = RegisterForm
 	success_url = reverse_lazy("login")
 
+	def dispatch(self, request, *args, **kwargs):
+		if request.user.is_authenticated:
+			return redirect("home")
+		return super().dispatch(request, *args, **kwargs)
+
 	def form_valid(self, form):
 		new_user = form.save(commit=False)
 		new_user.set_password(form.cleaned_data["password"])
@@ -86,12 +91,20 @@ class PublishView(LoginRequiredMixin, CreateView):
 		return super().form_valid(form)
 
 class AddToFavouriteView(LoginRequiredMixin, CreateView):
-	model = UserFavouriteArticle
-	template_name = "add_favourite.html"
-	fields = []
-	success_url = reverse_lazy("favourites")
+    model = UserFavouriteArticle
+    template_name = "add_favourite.html"
+    fields = []
+    success_url = reverse_lazy("favourites")
 
-	def form_valid(self, form):
-		form.instance.user = self.request.user
-		form.instance.article = Article.objects.get(pk=self.kwargs["pk"])
-		return super().form_valid(form)
+    def form_valid(self, form):
+        form.instance.user = self.request.user
+        form.instance.article = Article.objects.get(pk=self.kwargs["pk"])
+
+        # Check if the article is already in the user's favorites
+        if UserFavouriteArticle.objects.filter(user=self.request.user, article=form.instance.article).exists():
+            # Render the template with an error message and set status code to 200
+            context = self.get_context_data(form=form)
+            context["error"] = "Article already in favourites."
+            return self.render_to_response(context, status=200)
+
+        return super().form_valid(form)
