@@ -91,20 +91,18 @@ class PublishView(LoginRequiredMixin, CreateView):
 		return super().form_valid(form)
 
 class AddToFavouriteView(LoginRequiredMixin, CreateView):
-    model = UserFavouriteArticle
-    template_name = "add_favourite.html"
-    fields = []
-    success_url = reverse_lazy("favourites")
+	model = UserFavouriteArticle
+	template_name = "add_favourite.html"
+	fields = []
+	success_url = reverse_lazy("favourites")
 
-    def form_valid(self, form):
-        form.instance.user = self.request.user
-        form.instance.article = Article.objects.get(pk=self.kwargs["pk"])
+	def form_valid(self, form):
+		form.instance.user = self.request.user
+		form.instance.article = Article.objects.get(pk=self.kwargs["pk"])
 
-        # Check if the article is already in the user's favorites
-        if UserFavouriteArticle.objects.filter(user=self.request.user, article=form.instance.article).exists():
-            # Render the template with an error message and set status code to 200
-            context = self.get_context_data(form=form)
-            context["error"] = "Article already in favourites."
-            return self.render_to_response(context, status=200)
+		if UserFavouriteArticle.objects.filter(user=self.request.user, article=form.instance.article).exists():
+			context = self.get_context_data(form=form)
+			context["error"] = "Article already in favourites."
+			return self.render_to_response(context, status=200)
 
-        return super().form_valid(form)
+		return super().form_valid(form)
