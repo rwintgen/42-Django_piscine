@@ -4,14 +4,17 @@
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>AJAX Login</title>
+	<title>Login</title>
 	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-	<script src="{% static 'account/js/login.js' %}" defer></script>
+	<script src="{% static 'account/js/auth.js' %}" defer></script>
 </head>
 <body>
 	{% if user.is_authenticated %}
 		<p>Logged as {{ user.username }}</p>
-		<button id="logout-btn">Logout</button>
+		<form id="logout-form">
+			{% csrf_token %}
+			<button type="button" id="logout-btn">Logout</button>
+		</form>
 	{% else %}
 		<form id="login-form">
 			{% csrf_token %}
