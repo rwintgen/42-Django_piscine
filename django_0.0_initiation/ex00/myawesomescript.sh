@@ -1,3 +1,3 @@
 #!/bin/sh
 
-curl -sI "$1" | grep -i ^location | cut -d' ' -f2
+curl -s --head "$1" | grep --ignore-case ^location | cut --delimiter=' ' --fields=2
